@@ -37,7 +37,7 @@ $endif$
 }
 { % long or thesis
   % hh long margins in MS Word: top: 1cm, left 2cm, gutter: 2cm, bottom: 1cm, right: 1.5cm
-  \PassOptionsToPackage{top=1cm, bottom=3cm, left=4cm, right=1.5cm, includehead=true, includefoot=true}{geometry}
+  \PassOptionsToPackage{top=1cm, bottom=1cm, left=2cm, right=1.5cm, includehead=true, includefoot=true}{geometry}
   \providecommand{\hhleftmargin}{0cm}
   \providecommand{\hhlinespacing}{1.5} % HH line spacing uses the MS Word 1.5 spacing in thesis and long format
 }
@@ -87,21 +87,25 @@ $endif$
 \newtranslation[to = finnish]{report}{Raportti}
 \newtranslation[to = british]{assignmentreport}{Report}
 \newtranslation[to = finnish]{assignmentreport}{Harjoitustyöraportti}
-\newtranslation[to = british]{toctitle}{Contents}
+\newtranslation[to = british]{toctitle}{Table of contents}
 \newtranslation[to = finnish]{toctitle}{Sisällys}
 \newtranslation[to = british]{abstract}{Abstract}
 \newtranslation[to = finnish]{abstract}{Tiivistelmä}
 \newtranslation[to = british]{authors}{Author(s)}
 \newtranslation[to = finnish]{authors}{Tekijä(t)}
-\newtranslation[to = british]{thesisname}{Thesis title}
+\newtranslation[to = british]{thesisname}{Title}
 \newtranslation[to = finnish]{thesisname}{Opinnäytetyön nimi}
 \newtranslation[to = british]{pagecount}{Number of pages}
 \newtranslation[to = finnish]{pagecount}{Sivumäärä}
+\newtranslation[to = british]{pageandappendicescount}{Number of pages and appendices}
+\newtranslation[to = finnish]{pageandappendicescount}{Sivujen ja liitteiden lukumäärä}
 \newtranslation[to = british]{numberofappendices}{number of appendices}
 \newtranslation[to = finnish]{numberofappendices}{liitesivumäärä}
+\newtranslation[to = british]{and}{and}
+\newtranslation[to = finnish]{and}{ja}
 \newtranslation[to = british]{keywords}{Keywords}
 \newtranslation[to = finnish]{keywords}{Asiasanat}
-\newtranslation[to = british]{orientation}{Specialisation}
+\newtranslation[to = british]{orientation}{Degree}
 \newtranslation[to = finnish]{orientation}{Suuntautuminen}
 \newtranslation[to = british]{abbreviations}{Abbreviations}
 \newtranslation[to = finnish]{abbreviations}{Lyhenteet}
@@ -156,6 +160,29 @@ $endif$
   stepnumber=1,
   tabsize=2
 }
+
+% TypeScript support
+\usepackage{color}
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\lstdefinelanguage{TypeScript}{
+  keywords={abstract, any, as, boolean, break, case, catch, class, console, const, continue, debugger, declare, default, delete, do, else, enum, export, extends, false, finally, for, from, function, get, if, implements, import, in, infer, instanceof, interface, keyof, let, module, namespace, never, new, null, number, object, package, private, protected, public, readonly, require, return, set, static, string, super, switch, symbol, this, throw, true, try, type, typeof, undefined, unique, unknown, var, void, while, with, yield},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  sensitive=true
+}
+
+\lstset{language=TypeScript}
+
 \newcommand{\passthrough}[1]{#1}
 
 \usepackage{sectsty}
@@ -199,19 +226,25 @@ $endif$
   \fancypagestyle{hh-template-abstract-header-footer}{
     \fancyhead{}
     \fancyfoot{}
-    \setlength{\headheight}{2cm}
+    %\setlength{\headheight}{2cm}
     \renewcommand{\headrulewidth}{0cm}
     \renewcommand{\footrulewidth}{0cm}
-    \lhead{\includegraphics[width=6cm]{\hhreportlogopath}}
-    \rhead{\ \\\textbf{\translate{abstract}}\\\hhdocumentdate\\}
+    \lhead{\textbf{{\large \translate{abstract}}}}
   }
 
   \fancypagestyle{hh-template-header-footer}{
     \fancyhead{}
+    \fancyhead[R]{\thepage}
     \fancyfoot{}
     \renewcommand{\headrulewidth}{0cm}
     \renewcommand{\footrulewidth}{0cm}
-    \cfoot{\thepage}
+  }
+
+  \fancypagestyle{hh-template-header-footer-no-numbering}{
+    \fancyhead{}
+    \fancyfoot{}
+    \renewcommand{\headrulewidth}{0cm}
+    \renewcommand{\footrulewidth}{0cm}
   }
 
   \setstretch{\hhlinespacing}
@@ -277,7 +310,7 @@ $endfor$
 
 \ifthenelse{\equal{\hhtemplatetype}{long}\OR\equal{\hhtemplatetype}{thesis}}{
   \begin{titlepage}
-    \newgeometry{top=1cm, bottom=1cm, left=4cm, right=1.5cm, includehead=false, includefoot=false}
+    \newgeometry{top=2cm, bottom=1cm, left=2cm, right=2cm, includehead=false, includefoot=false}
 
     \IfFileExists{\hhreportlogopath}{
       \includegraphics[width=7cm]{\hhreportlogopath}
@@ -343,7 +376,7 @@ $endfor$
     \end{picture}
   \end{titlepage}
 
-  \newgeometry{top=1cm, bottom=4cm, left=4cm, right=1.5cm, includehead=true, includefoot=true}
+  \newgeometry{top=2cm, bottom=4cm, left=2cm, right=2cm, includehead=true, includefoot=true}
 
 }{}
 
@@ -354,8 +387,9 @@ $if(abstract)$
   \newpage
   \noindent{\vspace{-1pt}\fbox{\begin{minipage}[l][2.5em][t]{\textwidth}\textbf{\translate{authors}}\\\hhdocumentauthor\end{minipage}}
   \vspace{-1pt}\fbox{\begin{minipage}[l][2.5em][t]{\textwidth}\textbf{\translate{orientation}}\\\orientation\end{minipage}}
-  \vspace{-1pt}\fbox{\begin{minipage}[l][4.5em][t]{\dimexpr(\textwidth-4.5cm)}\textbf{\translate{thesisname}}\\\ \\\hhdocumenttitle\end{minipage}}\hspace{-1pt}\fbox{\begin{minipage}[l][4.5em][t]{4.3cm}\textbf{\translate{pagecount} +\\\translate{numberofappendices}}\\ \hhdocumentpagecount\ + \hhdocumentnumberofappendices\end{minipage}}
-  \vspace{-1pt}\fbox{\begin{minipage}[l][16cm][t]{\textwidth}\setlength{\parskip}{1em}$abstract$\end{minipage}}
+  \vspace{-1pt}\fbox{\begin{minipage}[l][2.5em][t]{\textwidth}\textbf{\translate{thesisname}}\\\hhdocumenttitle\end{minipage}}
+  \vspace{-1pt}\fbox{\begin{minipage}[l][2.5em][t]{\textwidth}\textbf{\translate{pageandappendicescount}}\\ \hhdocumentpagecount\ + \hhdocumentnumberofappendices\end{minipage}}
+  \vspace{-1pt}\fbox{\begin{minipage}[l][13cm][t]{\textwidth}\setlength{\parskip}{1em}$abstract$\end{minipage}}
   \vspace{-1pt}\fbox{\begin{minipage}[l][3.5em][t]{\textwidth}\textbf{\translate{keywords}}\\\hhdocumentkeywords\end{minipage}}}
   \newpage
   \setstretch{\hhlinespacing}
@@ -365,15 +399,14 @@ $endif$
 % hack to prevent centering of images. can be applied only after fancyhdr setup to not affect header/footer settings
 \def\centering{\hspace{\hhleftmargin}}
 
-\pagestyle{hh-template-header-footer}
+\pagestyle{hh-template-header-footer-no-numbering}
 
 \ifthenelse{\equal{\hhtemplatetype}{long}\OR\equal{\hhtemplatetype}{thesis}}{
 
-  \newgeometry{top=2cm, bottom=2cm, left=4cm, right=1.5cm, includehead=false, includefoot=true}
+  \newgeometry{top=3cm, bottom=2cm, left=2cm, right=2cm, includehead=false, includefoot=true}
 
   % table of contents
   \newpage
-  \pagenumbering{roman}
   \renewcommand*\contentsname{\translate{toctitle}}
   \titlecontents{section}
     [1.5em]
@@ -406,6 +439,7 @@ $endif$
   $endif$
 
   \newpage
+  \pagestyle{hh-template-header-footer}
 
   % New page per section, defined here to ensure that header and footer remain empty
   \newcommand{\sectionbreak}{\newpage}
