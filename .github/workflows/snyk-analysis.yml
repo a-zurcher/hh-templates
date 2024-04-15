@@ -12,7 +12,7 @@ jobs:
   snyk:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Build a Docker image
       run: docker build -t hh-templates .
     - name: Run Snyk to check Docker image for vulnerabilities
@@ -29,7 +29,7 @@ jobs:
         image: hh-templates
         args: --file=Dockerfile --exclude-base-image-vulns
     - name: Upload result to GitHub Code Scanning
-      uses: github/codeql-action/upload-sarif@v1
+      uses: github/codeql-action/upload-sarif@v3
       with:
         sarif_file: snyk.sarif
 
