@@ -10,6 +10,8 @@
 \providecommand{\hhreportlogopath}{$if(hhreportlogopath)$$hhreportlogopath$$else$media/hhreportlogo.png$endif$}
 \providecommand{\hhtemplatetype}{$if(hhtemplatetype)$$hhtemplatetype$$else$short$endif$}
 \providecommand{\hhdocumentdate}{$date$}
+\providecommand{\thesisdegreeandorientation}{$thesisdegreeandorientation$}
+\providecommand{\thesistype}{$thesistype$}
 \providecommand{\hhdocumentyear}{$if(year)$$year$$else$$date$$endif$}
 \providecommand{\hhdocumentauthor}{$if(author)$$author$$else$\ $endif$}
 \providecommand{\hhdocumenttitle}{$if(title)$$title$$else$\ $endif$}
@@ -75,11 +77,11 @@ $endif$
 % Table = Taulukko
 
 \ifthenelse{\equal{\degreetype}{MBA}}{
-\newtranslation[to = british]{thesis}{Master’s Thesis}
+\newtranslation[to = british]{thesis}{Master's Thesis}
 \newtranslation[to = finnish]{thesis}{Master opinnäytetyö}
 }
 { % BBA
-\newtranslation[to = british]{thesis}{Bachelor’s Thesis}
+\newtranslation[to = british]{thesis}{Bachelor's Thesis}
 \newtranslation[to = finnish]{thesis}{Opinnäytetyö}
 }
 
@@ -310,70 +312,46 @@ $endfor$
 
 \ifthenelse{\equal{\hhtemplatetype}{long}\OR\equal{\hhtemplatetype}{thesis}}{
   \begin{titlepage}
-    \newgeometry{top=2cm, bottom=1cm, left=2cm, right=2cm, includehead=false, includefoot=false}
+    \newgeometry{top=3.5cm, bottom=1cm, left=4.25cm, right=2cm, includehead=false, includefoot=false}
 
     \IfFileExists{\hhreportlogopath}{
-      \includegraphics[width=7cm]{\hhreportlogopath}
+      \includegraphics[width=7.5cm]{\hhreportlogopath}
     }{
       \GenericError{}{HH logo not found in '\hhreportlogopath'}
     }
 
-    \begin{textblock*}{15cm}(4.2cm,12cm)
+    \begin{textblock*}{15.25cm}(4.25cm,15.5cm)
       {\Large \textbf{\hhdocumenttitle}}
       \par\hhdocumentauthor
-    \end{textblock*}
-    
-    \begin{textblock*}{4cm}(14.5cm,24.5cm)
-    \setlength{\parskip}{0.0em}
-    % No hyphenation here
-    \tolerance=1
-    \emergencystretch=\maxdimen
-    \hyphenpenalty=10000
-    \hbadness=10000
-    \ifthenelse{\equal{\hhtemplatetype}{long}}{
-      \translate{assignmentreport}
-      \par\course
-      \par\hhdocumentdate
-    }
-    { %thesis
-      \translate{thesis}
-      \par\orientation
-      \par\hhdocumentyear      
-    }
+
+      \qquad
+
+      \setlength{\parskip}{0.0em}
+      % No hyphenation here
+      \tolerance=1
+      \emergencystretch=\maxdimen
+      \hyphenpenalty=10000
+      \hbadness=10000
+      \ifthenelse{\equal{\hhtemplatetype}{long}}{
+        \translate{assignmentreport}
+        \par\course
+        \par\hhdocumentdate
+      }
+      { %thesis
+        \translate{hhfullname}
+        \par\thesisdegreeandorientation
+        \par\thesistype
+        \par\hhdocumentyear
+      }
     \end{textblock*}
 
-    % Add the title page graphics elements
 
     \vfill
-
-    \definecolor{hhcolor01}{RGB}{0, 122, 201}
-    \definecolor{hhcolor02}{RGB}{115, 140, 188}
-    \definecolor{hhcolor03}{RGB}{0, 153, 177}
-    \definecolor{hhcolor04}{RGB}{172, 205, 21}
-    \definecolor{hhcolor05}{RGB}{124, 213, 104}
-    \definecolor{hhcolor06}{RGB}{58, 26, 24}
 
     \providecommand{\hhboxwidth}{0.5cm}
     \newcommand\fillrectangle[2][black]{\color{#1}{\rule{\hhboxwidth}{#2}}}
 
-    \begin{flushright}
-      \setlength{\unitlength}{\dimexpr(\hhboxwidth+0.1cm)}
-      \begin{picture}(1,5)
-        \put(0,-0.4){\fillrectangle[hhcolor06]{\hhboxwidth}}
-        \put(0,0.9){\fillrectangle[hhcolor05]{\hhboxwidth}}
-        \put(0,1.9){\fillrectangle[hhcolor04]{\hhboxwidth}}
-        \put(0,3){\fillrectangle[hhcolor03]{\hhboxwidth}}
-        \put(0,4){\fillrectangle[hhcolor02]{\hhboxwidth}}
-        \put(0,5){\fillrectangle[hhcolor01]{\hhboxwidth}}
-      \end{picture}
-    \end{flushright}
-
     \setlength{\unitlength}{\hhboxwidth}
-    \begin{picture}(1,1)
-      \put(-4,0){\fillrectangle[hhcolor01]{\textheight}}
-      \put(-3,0){\fillrectangle[hhcolor02]{\textheight}}
-      \put(-2,0){\fillrectangle[hhcolor04]{\textheight}}
-    \end{picture}
   \end{titlepage}
 
   \newgeometry{top=2cm, bottom=4cm, left=2cm, right=2cm, includehead=true, includefoot=true}
