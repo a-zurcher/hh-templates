@@ -4,11 +4,15 @@ author: "Mika Rautio"
 date: "06.02.2021"
 year: "2021"
 lang: en-GB
-orientation: "Business Information Technology 'n' stuff"
+thesisdegreeandorientation: "Bachelor of Business Information Technology"
+orientation: "Business Information Technology"
+thesistype: "Product-based thesis"
 hhtemplatetype: "long" # "short" and "thesis" supported also
 course: "ICT1TA001-1234 Orientaatio parempiin tekstinkäsittelyratkaisuihin"
-abstract: "Here's some abstract text.\\par Let's see how it ends up..."
-hhdocumentkeywords:
+abstract: |
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in massa a magna varius efficitur eleifend sit amet lacus. Pellentesque pulvinar blandit nisi. Nullam mattis euismod sem vel porta. Fusce semper at mauris in fermentum. Donec lobortis pharetra ipsum bibendum tristique. Donec vestibulum interdum molestie. In iaculis ultrices diam, id viverra metus iaculis nec. Quisque malesuada, ligula non vehicula efficitur, metus ex maximus quam, at volutpat justo lectus quis leo. Sed a tincidunt nunc. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc euismod arcu et eros placerat vulputate. Sed lobortis purus non mauris tristique, a consectetur lectus commodo. Ut quis ex turpis.
+
+  Vivamus gravida pretium tempus. Donec placerat dolor ac diam pellentesque, eu aliquam dolor volutpat. Sed rhoncus odio sit amet metus auctor laoreet. Morbi eleifend feugiat lectus, consequat lobortis metus laoreet ac. Suspendisse id aliquam dui. Fusce enim dolor, sodales a orci eget, commodo fringilla orci. Morbi ante dolor, egestas id lectus id, faucibus molestie turpis. Aliquam et pellentesque augue. Sed sagittis ante a lorem consequat feugiat. Mauris commodo dapibus suscipit. Aenean eu magna porta libero lobortis dignissim. Aliquam facilisis risus nunc, ut mattis tortor mattis eu. Mauris et justo a est dictum euismod. Ut a varius nibh, ac vestibulum felis. Nunc varius, erat pulvinar posuere vestibulum, enim dolor commodo ipsum, eu ultricies lacus elit id orci. Nam tincidunt, nunc aliquet tincidunt tempus, quam augue luctus metus, at eleifend tellus elit congue nisi.hhdocumentkeywords:
 - LaTeX
 - Markdown
 - pandoc
