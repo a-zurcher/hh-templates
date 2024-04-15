@@ -228,10 +228,8 @@ $endif$
   \fancypagestyle{hh-template-abstract-header-footer}{
     \fancyhead{}
     \fancyfoot{}
-    %\setlength{\headheight}{2cm}
     \renewcommand{\headrulewidth}{0cm}
     \renewcommand{\footrulewidth}{0cm}
-    \lhead{\textbf{{\large \translate{abstract}}}}
   }
 
   \fancypagestyle{hh-template-header-footer}{
@@ -360,15 +358,23 @@ $endfor$
 
 $if(abstract)$
 \ifthenelse{\equal{\hhtemplatetype}{thesis}}{
-  \setstretch{1.0} % abstract has smaller spacing than other pages
+  \newgeometry{top=2.5cm, bottom=2cm, left=2cm, right=2cm, includehead=false, includefoot=true}
+
+  \setstretch{1.2} % abstract has smaller spacing than other pages
   \pagestyle{hh-template-abstract-header-footer}
   \newpage
-  \noindent{\vspace{-1pt}\fbox{\begin{minipage}[l][2.5em][t]{\textwidth}\textbf{\translate{authors}}\\\hhdocumentauthor\end{minipage}}
-  \vspace{-1pt}\fbox{\begin{minipage}[l][2.5em][t]{\textwidth}\textbf{\translate{orientation}}\\\orientation\end{minipage}}
-  \vspace{-1pt}\fbox{\begin{minipage}[l][2.5em][t]{\textwidth}\textbf{\translate{thesisname}}\\\hhdocumenttitle\end{minipage}}
-  \vspace{-1pt}\fbox{\begin{minipage}[l][2.5em][t]{\textwidth}\textbf{\translate{pageandappendicescount}}\\ \hhdocumentpagecount\ + \hhdocumentnumberofappendices\end{minipage}}
-  \vspace{-1pt}\fbox{\begin{minipage}[l][13cm][t]{\textwidth}\setlength{\parskip}{1em}$abstract$\end{minipage}}
-  \vspace{-1pt}\fbox{\begin{minipage}[l][3.5em][t]{\textwidth}\textbf{\translate{keywords}}\\\hhdocumentkeywords\end{minipage}}}
+
+  \textbf{{\large \translate{abstract}}}
+  \vspace{0.75em}
+
+  \noindent{%
+    \vspace{-1pt}\fbox{\begin{minipage}{\textwidth}\textbf{\translate{authors}}\\\hhdocumentauthor\end{minipage}}
+    \vspace{-1pt}\fbox{\begin{minipage}{\textwidth}\textbf{\translate{orientation}}\\\orientation\end{minipage}}
+    \vspace{-1pt}\fbox{\begin{minipage}{\textwidth}\textbf{\translate{thesisname}}\\\hhdocumenttitle\end{minipage}}
+    \vspace{-1pt}\fbox{\begin{minipage}{\textwidth}\textbf{\translate{pageandappendicescount}}\\ \hhdocumentpagecount\ + \hhdocumentnumberofappendices\end{minipage}}
+    \vspace{-1pt}\fbox{\begin{minipage}{\textwidth}\setlength{\parskip}{1em}$abstract$\end{minipage}}
+    \vspace{-1pt}\fbox{\begin{minipage}{\textwidth}\textbf{\translate{keywords}}\\\hhdocumentkeywords\end{minipage}}
+  }
   \newpage
   \setstretch{\hhlinespacing}
 }{}
