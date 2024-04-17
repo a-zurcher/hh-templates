@@ -78,13 +78,6 @@ Variable: hhtemplatetype
 * Long report template: [long](https://github.com/mrautio/hh-templates/blob/main/examples/README_long_english.pdf)
 * Thesis template: [thesis](https://github.com/mrautio/hh-templates/blob/main/examples/README_thesis_english.pdf)
 
-### Arial font support
-
-Haaga-Helia templates use Arial as the default font. It is a Microsoft proprietary font and not commonly available outside Windows and Office systems.
-
-Docker image does not have Arial font installed. FreeSans is used as Docker image default font instead of Arial.
-If you need Arial font outside Windows then at least Debian/Ubuntu has the font available in the package 'ttf-mscorefonts-installer'.
-
 ## Usage
 
 This README file is an example that can be rendered to Haaga-Helia document template PDF, check the [raw file contents](https://github.com/mrautio/hh-templates/raw/main/README.md) for details.
