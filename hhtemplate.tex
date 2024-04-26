@@ -44,6 +44,9 @@ $endif$
   \providecommand{\hhlinespacing}{1.5} % HH line spacing uses the MS Word 1.5 spacing in thesis and long format
 }
 
+\errorcontextlines 10000
+\usepackage[table]{xcolor}
+\usepackage{calc}
 \usepackage{geometry}
 \usepackage[unicode]{hyperref}
 
@@ -214,7 +217,8 @@ $endif$
 
   \setcounter{secnumdepth}{-1}
   \fancypagestyle{hh-template-header-footer}{
-    \fancyhead{}
+    \fancyhead[R]{\thepage}
+    \fancyhead[L]{\textbf{test}}
     \fancyfoot{}
     \setlength{\headheight}{2cm}
     \renewcommand{\headrulewidth}{0cm}
@@ -240,14 +244,14 @@ $endif$
     \renewcommand{\footrulewidth}{0cm}
   }
 
-  \fancypagestyle{hh-template-header-footer-no-numbering}{
-    \fancyhead{}
-    \fancyfoot{}
-    \renewcommand{\headrulewidth}{0cm}
-    \renewcommand{\footrulewidth}{0cm}
-  }
-
   \setstretch{\hhlinespacing}
+}
+
+\fancypagestyle{hh-template-header-footer-no-numbering}{
+  \fancyhead{}
+  \fancyfoot{}
+  \renewcommand{\headrulewidth}{0cm}
+  \renewcommand{\footrulewidth}{0cm}
 }
 
 %% pandoc-fignos: environment to disable figure caption prefixes
@@ -297,10 +301,22 @@ $endif$
 $if(csl-refs)$
 \newlength{\cslhangindent}       % set up new length
 \setlength{\cslhangindent}{$if(csl-hanging-indent)$2em$else$0em$endif$}
-\newenvironment{cslreferences}%
+\newenvironment{CSLReferences}%
   {\everypar{\setlength{\hangindent}{\cslhangindent}}}%
   {\par} % by default, this env does not change anything
 $endif$
+
+%
+% tables
+%
+$if(tables)$
+\usepackage{longtable,booktabs,array}
+
+\renewcommand{\arraystretch}{1.2} % table spacing
+\usepackage{longtable}
+\arrayrulecolor{black}
+$endif$
+
 
 $for(include-before)$
 $include-before$
@@ -383,7 +399,11 @@ $endif$
 % hack to prevent centering of images. can be applied only after fancyhdr setup to not affect header/footer settings
 \def\centering{\hspace{\hhleftmargin}}
 
-\pagestyle{hh-template-header-footer-no-numbering}
+\ifthenelse{\equal{\hhtemplatetype}{thesis}}{
+  \pagestyle{hh-template-header-footer-no-numbering}
+}{
+  \pagestyle{hh-template-header-footer}
+}
 
 \ifthenelse{\equal{\hhtemplatetype}{long}\OR\equal{\hhtemplatetype}{thesis}}{
 

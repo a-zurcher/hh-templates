@@ -13,27 +13,26 @@ RUN apt update && \
         netbase \
         plantuml \
         pandoc \
-        pandoc-citeproc \
-        python3-minimal \
-        python3-dev \
+        python3 \
         python3-pip \
         python3-setuptools \
-        gcc && \
-    pip3 install --no-cache-dir \
-        pandoc-fignos \
-        pandoc-tablenos \
-        pandoc-plantuml-filter && \
-    apt remove -y --auto-remove python3-pip && \
-    apt purge -y --auto-remove \
-        python3-dev \
-        python3-setuptools \
-        gcc && \
-    mkdir -p /appdata && adduser --disabled-password --disabled-login appuser
+        gcc
 
 # necessary step to accept Microsoft's EULA programatically
-RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections
-RUN apt install ttf-mscorefonts-installer -y
-RUN rm -rf /var/lib/apt/lists/* 
+RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections && \
+    apt install ttf-mscorefonts-installer -y
+
+RUN apt install -y git && pip install --no-cache-dir --break-system-packages \
+        git+https://github.com/tomduck/pandoc-xnos@284474574f51888be75603e7d1df667a0890504d#egg=pandoc-xnos \
+        pandoc-plantuml-filter
+
+RUN apt remove -y --auto-remove python3-pip && \
+    apt purge -y --auto-remove \
+        python3-setuptools \
+        gcc && \    
+    rm -rf /var/lib/apt/lists/* 
+
+RUN mkdir -p /appdata && adduser --disabled-password --disabled-login appuser
 
 WORKDIR /appdata
 
@@ -52,4 +51,4 @@ RUN \
 
 USER appuser
 
-ENTRYPOINT [ "pandoc", "+RTS", "-M128m", "-RTS", "--template=/appdata/hhtemplate.tex", "--filter=pandoc-tablenos", "--filter=pandoc-fignos", "--filter=pandoc-citeproc", "--filter=pandoc-plantuml", "--pdf-engine=xelatex", "--listings", "--variable=hhreportlogopath:/appdata/media/hhreportlogo.png", "--variable=hhdocumentfont:FreeSans", "--csl=/appdata/style.csl", "--resource-path=/appdata:/report:." ]
+ENTRYPOINT [ "pandoc", "--template=/appdata/hhtemplate.tex", "--citeproc", "--pdf-engine=xelatex", "--listings", "--variable=hhreportlogopath:/appdata/media/hhreportlogo.png", "--csl=/appdata/style.csl", "--resource-path=/appdata:/report:." ]
